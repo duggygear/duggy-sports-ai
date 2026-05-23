@@ -45,14 +45,11 @@ page = st.sidebar.radio("Menu", ["Generate", "Upgrade"])
 # -------------------------------
 if page == "Generate":
     
-
     st.title("⚾ Duggy Sports AI")
 
     st.markdown("### Turn sports moments into viral TikTok content in seconds")
     st.caption("Used by athletes, parents, and content creators")
-
     st.divider()
-
     if not st.session_state.is_pro and st.session_state.usage >= FREE_LIMIT:
         st.error("Free limit reached. Upgrade to continue.")
         st.stop()
