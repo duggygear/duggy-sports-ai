@@ -12,7 +12,7 @@ PRICE_ID = os.getenv("STRIPE_PRICE_ID")
 # -------------------------------
 # CONFIG
 # -------------------------------
-client = OpenAI()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 PRICE_ID = os.getenv("STRIPE_PRICE_ID")
