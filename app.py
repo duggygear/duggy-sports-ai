@@ -124,7 +124,7 @@ elif page == "Upgrade":
     - Viral templates unlocked
     """)
 
-    if st.button("💳 Create Checkout Link"):
+    if st.button("💳 Checkout"):
 
         checkout = stripe.checkout.Session.create(
             mode="subscription",
