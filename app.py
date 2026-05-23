@@ -45,15 +45,6 @@ page = st.sidebar.radio("Menu", ["Generate", "Upgrade"])
 # -------------------------------
 if page == "Generate":
     
-    style = st.selectbox(
-    "Choose content style",
-    [
-        "🔥 Hype ESPN",
-        "😂 Funny Parent Voice",
-        "🎯 Recruiting Highlight",
-        "📱 TikTok Viral"
-    ]
-)
 
     st.title("⚾ Duggy Sports AI")
 
@@ -72,6 +63,15 @@ if page == "Generate":
         height=120
     )
 
+    style = st.selectbox(
+        "Choose content style",
+    [
+            "🔥 Hype ESPN",
+            "😂 Funny Parent Voice",
+            "🎯 Recruiting Highlight",
+            "📱 TikTok Viral"
+    ]
+    )
 
     if st.button("🚀 Generate Viral Content", type="primary"):
 
@@ -124,7 +124,7 @@ elif page == "Upgrade":
     - Viral templates unlocked
     """)
 
-    if st.button("💳 Checkout"):
+    if st.button("💳 Upgrade to Pro"):
 
         checkout = stripe.checkout.Session.create(
             mode="subscription",
@@ -136,4 +136,8 @@ elif page == "Upgrade":
             cancel_url="https://your-app-url.streamlit.app"
         )
 
-        st.link_button("👉 Complete Payment", checkout.url)
+        # INSTANT REDIRECT (no second click)
+        st.markdown(
+            f'<meta http-equiv="refresh" content="0; url={checkout.url}">',
+            unsafe_allow_html=True
+        )
