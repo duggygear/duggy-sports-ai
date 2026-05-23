@@ -121,7 +121,7 @@ elif page == "Upgrade":
     - Viral templates unlocked
     """)
 
-    if st.button("💳 Upgrade to Pro"):
+    if st.button("💳 Upgrade Now"):
 
         checkout = stripe.checkout.Session.create(
             mode="subscription",
@@ -129,11 +129,11 @@ elif page == "Upgrade":
                 "price": PRICE_ID,
                 "quantity": 1
             }],
-            success_url="https://your-app-url.streamlit.app",
-            cancel_url="https://your-app-url.streamlit.app"
+            success_url="https://duggysportsai.streamlit.app",
+            cancel_url="https://duggysportsai.streamlit.app"
         )
 
-        # INSTANT REDIRECT (no second click)
+        # INSTANT REDIRECT (no second step, no st.link_button)
         st.markdown(
             f'<meta http-equiv="refresh" content="0; url={checkout.url}">',
             unsafe_allow_html=True
