@@ -116,7 +116,6 @@ Moment:
 elif page == "Upgrade":
 
     st.title("Upgrade to Pro 💳")
-   
 
     st.markdown("""
     ### 🚀 Pro includes:
@@ -125,14 +124,16 @@ elif page == "Upgrade":
     - Viral templates unlocked
     """)
 
-    checkout = stripe.checkout.Session.create(
-        mode="subscription",
-        line_items=[{
-            "price": PRICE_ID,
-            "quantity": 1
-        }],
-        success_url="http://localhost:8501",
-        cancel_url="http://localhost:8501"
-    )
+    if st.button("💳 Create Checkout Link"):
 
-    st.link_button("💳 Upgrade Instantly", checkout.url)
+        checkout = stripe.checkout.Session.create(
+            mode="subscription",
+            line_items=[{
+                "price": PRICE_ID,
+                "quantity": 1
+            }],
+            success_url="https://your-app-url.streamlit.app",
+            cancel_url="https://your-app-url.streamlit.app"
+        )
+
+        st.link_button("👉 Complete Payment", checkout.url)
