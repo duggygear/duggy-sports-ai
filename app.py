@@ -44,26 +44,42 @@ page = st.sidebar.radio("Menu", ["Generate", "Upgrade"])
 # GENERATE PAGE
 # -------------------------------
 if page == "Generate":
+    
+    style = st.selectbox(
+    "Choose content style",
+    [
+        "🔥 Hype ESPN",
+        "😂 Funny Parent Voice",
+        "🎯 Recruiting Highlight",
+        "📱 TikTok Viral"
+    ]
+)
 
     st.title("⚾ Duggy Sports AI")
 
-    st.markdown("### ⚾ Turn sports moments into viral TikTok content in seconds")
+    st.markdown("### Turn sports moments into viral TikTok content in seconds")
     st.caption("Used by athletes, parents, and content creators")
+
+    st.divider()
 
     if not st.session_state.is_pro and st.session_state.usage >= FREE_LIMIT:
         st.error("Free limit reached. Upgrade to continue.")
         st.stop()
 
-    play = st.text_area("Describe the sports moment")
-    style = st.selectbox("Style", ["Hype ESPN", "Funny Parent", "Recruiting", "TikTok Viral"])
+    play_description = st.text_area(
+        "",
+        placeholder="Example: Walk-off double in championship game, crowd goes wild...",
+        height=120
+    )
 
-    if st.button("Generate 🚀"):
 
-        if not play.strip():
+    if st.button("🚀 Generate Viral Content", type="primary"):
+
+        if not play_description.strip():
             st.warning("Enter a moment")
             st.stop()
 
-        with st.spinner("Generating..."):
+        with st.spinner("Generating viral content..."):
 
             response = client.chat.completions.create(
                 model="gpt-4.1-mini",
@@ -78,7 +94,7 @@ Create:
 10 hashtags
 
 Moment:
-{play}
+{play_description}
 """
                 }]
             )
@@ -87,8 +103,12 @@ Moment:
 
         st.session_state.usage += 1
 
-        st.subheader("🔥 Results")
-        st.text(output)
+        st.divider()
+
+        st.markdown("## 🔥 Your Viral Content")
+
+        with st.container(border=True):
+            st.markdown(output)
 
 # -------------------------------
 # UPGRADE PAGE (STRIPE)
